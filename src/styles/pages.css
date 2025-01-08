@@ -1,0 +1,5 @@
+/* pages.css */
+/* Styles spécifiques aux pages */
+.home-page {
+    @apply p-8 bg-gray-100;
+  }
