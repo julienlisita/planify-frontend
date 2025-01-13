@@ -4,8 +4,8 @@ const Button = ({ value, onClick }) => {
   return (<div>
     <button
       className="bg-taupe text-linen m-2 py-2 px-4 rounded"
-      type='button'
-      onClick={() => onClick(value)} >
+      type='submit'
+      onClick={onClick} >
       {value}
     </button>
   </div>
