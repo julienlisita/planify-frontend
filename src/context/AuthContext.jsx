@@ -1,9 +1,19 @@
 // AuthContext.jsx
 import { createContext, useContext } from 'react';
+import useAuth from '../hooks/useAuth';
 
 const AuthContext = createContext();
-export const useAuthContext = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
-  return <AuthContext.Provider value={{ user: null }}>{children}</AuthContext.Provider>;
+  const auth = useAuth(); 
+
+  return (
+    <AuthContext.Provider value={auth}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
+
+export const useAuthContext = () => {
+  return useContext(AuthContext);
 };
