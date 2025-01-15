@@ -1,17 +1,18 @@
 import React from 'react';
 
-const Input = ({placeholder, value, onChange, label}) => {
+const Input = ({placeholder, value, onChange, label, className}) => {
   return <div>
-    <label className="block text-taupe text-sm font-bold mb-2" htmlFor="input-id">{label}</label>
+    <label className="block font-bold mb-2" htmlFor="input-id">{label}</label>
     <input
       id="input-id"
       type="text"
-      className="text-taupe text-sm font-bold mb-2"
+      className= {`bg-taupe text-linen m-2 py-2 px-4 rounded text-sm ${className}`}
       value={value}
       placeholder={placeholder}
       onChange={(e) => onChange(e.target.value)}
+      
     />
-  </div>
+  </div> 
 }
 
 export default Input;
