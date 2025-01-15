@@ -12,8 +12,8 @@ const SignupPage = () => {
 
 
   return (
-    <div className="signup-page">
-      <h1>Inscription</h1>
+    <div className="flex flex-col justify-center items-center bg-linen">
+      <h1 className="text-3xl font-bold text-center text-brownSugar mt-12">Inscription</h1>
       <SignupForm onSignup={handleSignup}/>
     </div>
   );
