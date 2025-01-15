@@ -72,10 +72,15 @@ import {jwtDecode} from 'jwt-decode';
       localStorage.setItem('token', token);
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     } catch (error) {
-      console.error('Signup failed:', error.response?.data || error.message);
+      if (error.response) {
+        // Vérifier les types d'erreurs spécifiques venant du backend
+        const errorMessage = error.response.data.message || 'Erreur d’inscription inconnue';
+        throw new Error(errorMessage); // Renvoyer l'erreur pour le composant appelant
+      } else {
+        //throw new Error('Une erreur réseau ou inconnue s’est produite.');
+      }
     }
   };
-
 
   return { user, isAuthenticated, login, logout, signup };
 };

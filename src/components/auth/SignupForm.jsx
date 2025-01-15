@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Input from '../common/Input';  
 import Button from '../common/Button';  
 
+
 const SignupForm = ({onSignup}) => {
 
   const [email, setEmail] = useState('');
@@ -10,11 +11,39 @@ const SignupForm = ({onSignup}) => {
   const [username, setUsername] = useState('');
   const [firstname, setFirstname] = useState('');
   const [lastname, setLastname] = useState('');
+  const [error, setError] = useState('');
 
-  const handleSignUp = (e) => {
+  const handleSignUp = async (e) => {
     e.preventDefault();
-    onSignup(email, password, username, firstname, lastname);
-    };
+    setError('');
+    try {
+      //Vérifier que les champs requis sont remplies
+      if (!username || !email || !password) {
+        setError('Tous les champs sont requis : username, email, password.');
+         return;
+      }
+      // Vérifier la validité du mot de passe 
+      if (!validatePassword(password)) {
+        setError('Le mot de passe doit contenir au moins 8 caractères, une majuscule et un caractère spécial.');
+        return;
+      }
+      // Vérifier que les mots de passe correspondent
+      if (password !== password2) {
+        setError("Les mots de passe ne correspondent pas.");
+      return; // Ne pas soumettre le formulaire si les mots de passe ne correspondent pas
+      }
+
+      await onSignup(email, password, username, firstname, lastname);
+    
+    } catch (err) {
+      setError(err.message); 
+    }
+  };
+
+  const validatePassword = (password) => {
+    const regex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.{8,})/;
+    return regex.test(password);
+  };
 
   return (
     <form onSubmit={handleSignUp} className="flex flex-col items-center max-w-sm mx-auto p-6 bg-linen">
@@ -59,6 +88,7 @@ const SignupForm = ({onSignup}) => {
       />
       <Button children="S'inscrire" 
         className="mt-6" />
+      {error && <p className="text-red-500 mt-6">{error}</p>} {/* Affiche le message d'erreur */}
     </form>
   );
 };

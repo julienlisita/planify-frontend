@@ -6,8 +6,8 @@ const SignupPage = () => {
 
   const { signup } = useAuth(); 
 
-  const handleSignup = (email, password, username, firstname, lastname ) => {
-    signup(email, password, username, firstname, lastname );  
+  const handleSignup = async (email, password, username, firstname, lastname ) => {
+    await signup(email, password, username, firstname, lastname );  
   };
 
 
