@@ -27,16 +27,24 @@ import {jwtDecode} from 'jwt-decode';
   const login = async (email, password) => {
     try {
       const response = await axios.post('http://localhost:3000/api/auth/login', { email, password });
-      const { token } = response.data;
-      const decodedToken = jwtDecode(token);
+      if(response.status === 200)
+      {
+        const { token } = response.data;
+        const decodedToken = jwtDecode(token);
       
-      setUser({ id: decodedToken.userId, email: decodedToken.email, roleId: decodedToken.role_id,});
+        setUser({ id: decodedToken.userId, email: decodedToken.email, roleId: decodedToken.role_id,});
   
-      localStorage.setItem('token', token); 
+        localStorage.setItem('token', token); 
 
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      }
+
     } catch (error) {
-      console.error('Login failed:', error.response?.data || error.message);
+      if (error.response?.status === 401 || error.response?.status === 404) {
+        throw new Error("Identifiant ou mot de passe incorrect");
+      } else {
+        throw new Error("Une erreur inattendue s'est produite");
+      }
     }
   };
 

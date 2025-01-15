@@ -7,15 +7,22 @@ import FormLinkStyled from '../common/FormLinkStyled';
 const LoginForm = ({ onLogin }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit =  async (e) => {
     e.preventDefault(); 
-    onLogin(email, password);
+    setError('')
+    try {
+      await onLogin(email, password);  
+    } catch (err) {
+      setError(err.message);  
+    }
   };
+
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col items-center max-w-sm mx-auto p-6 bg-linen">
-      <div flex flex-col items-center>
+      <div className='flex flex-col items-center'>
         <Input 
           placeholder="Email" 
           value={email} 
@@ -31,6 +38,7 @@ const LoginForm = ({ onLogin }) => {
       </div>
         <Button children="Se connecter" 
           className="mt-6" />
+      {error && <p className="text-red-500 mt-6 ">{error}</p>}  {/* Message d'erreur */} 
       <div className="flex flex-col items-center">
         <FormLinkStyled
           to="/forgot-password"

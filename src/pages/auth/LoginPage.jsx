@@ -5,8 +5,8 @@ import LoginForm from '../../components/auth/LoginForm';
 const LoginPage = () => {
   const { login } = useAuth();  
 
-  const handleLogin = (email, password) => {
-    login(email, password);  
+  const handleLogin = async (email, password) => {
+    await login(email, password);  
   };
 
   return (
