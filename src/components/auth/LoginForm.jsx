@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Input from '../common/Input';  
 import Button from '../common/Button';  
 import { Link } from 'react-router-dom';
-import FormLinkStyled from '../common/FormLinkStyled';
+import FormLink from '../common/FormLink';
 
 const LoginForm = ({ onLogin }) => {
   const [email, setEmail] = useState('');
@@ -40,11 +40,11 @@ const LoginForm = ({ onLogin }) => {
           className="mt-6" />
       {error && <p className="text-red-500 mt-6 ">{error}</p>}  {/* Message d'erreur */} 
       <div className="flex flex-col items-center">
-        <FormLinkStyled
+        <FormLink
           to="/forgot-password"
           children="Mot de passe oublié ?"
           className="mt-6" />
-        <FormLinkStyled
+        <FormLink
           to="/signup"
           children="Créer un compte"
           className="mt-6" />

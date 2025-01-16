@@ -2,7 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const FormLinkStyled = ({ to, children, className }) => {
+const FormLink = ({ to, children, className }) => {
   return (
     <Link
       to={to}
@@ -13,4 +13,4 @@ const FormLinkStyled = ({ to, children, className }) => {
   );
 };
 
-export default FormLinkStyled;
+export default FormLink;
