@@ -7,3 +7,7 @@
   .input {
     @apply border border-gray-300 p-2 rounded;
   }
+
+  .navbar-link {
+    @apply text-brownSugar hover:text-mossGreen font-bold font-sans;
+  }
