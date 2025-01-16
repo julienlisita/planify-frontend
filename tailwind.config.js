@@ -12,7 +12,10 @@ export default {
         mossGreen: '#8A9A5B',     // Vert mousse
         brownSugar: '#C76A4A',    // Brun "brown sugar" (orange brun)
         black: '#000000',         // Noir
-      }
+      },
+      fontFamily: {
+        sans: ['Nunito', 'sans-serif'], // Ajoutez cette ligne
+      },
     },
   },
   plugins: [],
