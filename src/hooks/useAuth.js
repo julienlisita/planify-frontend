@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import {jwtDecode} from 'jwt-decode';
+import authService from '../services/authService';
 
- const useAuth = () => {
+  const useAuth = () => {
 
   const [user, setUser] = useState(() => {
     const token = localStorage.getItem('token');
@@ -26,20 +26,12 @@ import {jwtDecode} from 'jwt-decode';
 
   const login = async (email, password) => {
     try {
-      const response = await axios.post('http://localhost:3000/api/auth/login', { email, password });
-      if(response.status === 200)
-      {
-        const { token } = response.data;
+        const { token } = await authService.login(email, password);
         const decodedToken = jwtDecode(token);
-      
         setUser({ id: decodedToken.userId, email: decodedToken.email, roleId: decodedToken.role_id,});
-  
         localStorage.setItem('token', token); 
-
-        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-      }
-
-    } catch (error) {
+        authService.setAuthToken(token);
+      } catch (error) {
       if (error.response?.status === 401 || error.response?.status === 404) {
         throw new Error("Identifiant ou mot de passe incorrect");
       } else {
@@ -51,16 +43,13 @@ import {jwtDecode} from 'jwt-decode';
   const logout = () => {
 
     setUser(null);
-
     localStorage.removeItem('token');
-    
-    delete axios.defaults.headers.common['Authorization'];
+    authService.clearAuthToken();
   };
 
   const signup = async (email, password, username, firstname, lastname) => {
     try {
-      const response = await axios.post('http://localhost:3000/api/auth/signup', { email, password, username, firstname, lastname });
-      const { token } = response.data;
+      const { token } = await authService.signup(email, password, username, firstname, lastname)
       const decodedToken = jwtDecode(token);
       
       setUser({
@@ -70,7 +59,7 @@ import {jwtDecode} from 'jwt-decode';
       });
 
       localStorage.setItem('token', token);
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      authService.setAuthToken(token);
     } catch (error) {
       if (error.response) {
         // Vérifier les types d'erreurs spécifiques venant du backend
