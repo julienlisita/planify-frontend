@@ -21,7 +21,7 @@ const LoginForm = ({ onLogin }) => {
 
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col items-center max-w-sm mx-auto p-6 bg-linen">
+    <form onSubmit={handleSubmit} className="flex flex-col items-center max-w-sm mx-auto p-6">
       <div className='flex flex-col items-center'>
         <Input 
           placeholder="Email" 

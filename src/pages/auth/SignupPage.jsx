@@ -12,7 +12,7 @@ const SignupPage = () => {
 
 
   return (
-    <div className="flex flex-col justify-center items-center bg-linen">
+    <div className="flex flex-col justify-center items-center">
       <h1 className="text-3xl font-bold text-center text-brownSugar mt-12">Inscription</h1>
       <SignupForm onSignup={handleSignup}/>
     </div>
