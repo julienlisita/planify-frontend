@@ -1,6 +1,15 @@
 // useSearch.js
+import { useState } from 'react';
+
 const useSearch = () => {
-    return { searchQuery: '', setSearchQuery: () => {} };
-  };
+  const [query, setQuery] = useState('');
   
-  export default useSearch;
+  const search = (value) => {
+    setQuery(value);
+    alert(`recherche en cours pour ${query}`);
+  };
+
+  return {search};
+};
+
+export default useSearch;
